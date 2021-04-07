@@ -1,0 +1,29 @@
+#!usr/bin/perl
+print "Conent-type: text/html\n\n";
+
+# Setting the password
+$password = '3d4rty6';
+
+# Encrypting the password using crypt function
+$hidden = crypt $password, join "",
+		('.');
+
+print "$hidden \n";
+
+$salt = substr ($hidden, 0, 2);
+
+# Taking user input
+print "Enter Your Password: \n";
+while (<STDIN>)
+{
+	if ($hidden eq (crypt $_, $salt))
+	{
+		print "Successfully Logged In \n";
+		exit;
+	}
+	else
+	{
+		print "Entered Password is Incorrect \n";
+		print "Please Try Again: \n";
+	}
+}
